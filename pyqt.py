@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 import sys
-#from PyQt4.QtGui import *
 import PyQt4.QtGui as qtgui
 
 class MainWindow(qtgui.QWidget):
@@ -8,6 +7,7 @@ class MainWindow(qtgui.QWidget):
 	label_lineedit= []
 	submit = None
 
+#Initialize object variables. Has to be done in __init__ otherwise static vars
 	def __init__(self):
 		super(MainWindow, self).__init__()
 		self.label_lineedit= []
@@ -17,15 +17,24 @@ class MainWindow(qtgui.QWidget):
 
 		self.layout_main_vert = qtgui.QVBoxLayout()
 		self.submit = qtgui.QPushButton("Submit!")
-		self.submit.clicked.connect(self.debug)
-		self.initUI()	
 
-	def initUI(self):
-		self.addLine("One", "dues")
+		self.initSignalSlots()
+		self.initLayout()	
+
+#Setup QT signals and slots
+	def initSignalSlots(self):
+		self.submit.clicked.connect(self.debug)
+		
+#Setup window layout. Main layout is vertical, with nested horizontals
+	def initLayout(self):
+		self.addLine("First", "one")
+		self.addLine("Second", "two")
+		self.addLine("Third", "three")
 		self.layout_main_vert.addWidget(self.submit)
 		self.setLayout(self.layout_main_vert)
 		self.show()
 
+#Add a line, which consists of a QLabel and a QLineEdit
 	def addLine(self, label_text, lineedit_text):
 		temp_layout_hz = qtgui.QHBoxLayout()
 		temp_label = qtgui.QLabel(label_text)
@@ -34,7 +43,7 @@ class MainWindow(qtgui.QWidget):
 		temp_layout_hz.addWidget(temp_lineedit)
 	
 		self.layout_main_vert.addLayout(temp_layout_hz)
-	
+
 	def debug(self):
 		self.addLine("Hello", "World!")
 		print("FLAGGED!")
