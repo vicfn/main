@@ -1,6 +1,5 @@
-#!/usr/bin/python -3
-
-from __future__ import print_function
+#!/usr/local/bin/python3
+#NEEDS PYTHON 3!
 
 import xml.etree.cElementTree as et
 tree=et.parse('sample2.xml')
