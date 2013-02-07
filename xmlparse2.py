@@ -27,4 +27,4 @@ print(root.tag)
 anime_list = parse_root(root)
 
 file = open("xml-file.pickle", "wb")
-pickle.dump(anime_list,file)
+pickle.dump(anime_list,file,2)
