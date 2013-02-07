@@ -2,12 +2,25 @@
 #NEEDS PYTHON 3!
 
 import xml.etree.cElementTree as et
+
+def parse_root(xml_tree):
+	anime_list = {}
+	for child in xml_tree:
+		if(child.tag=='anime'):
+			anime_series=parse_anime_entry(child)
+#			print(anime_series)
+			anime_list[anime_series['series_animedb_id']]=anime_series
+	print(anime_list)
+
+def parse_anime_entry(anime_entry):
+	result = {}
+	for tag in anime_entry:
+		result[tag.tag] = tag.text
+	return result
+
 tree=et.parse('sample2.xml')
 root=tree.getroot()
 
 print(root.tag)
-for child in root:
-	print("Child 1: ", child.tag, child.text)
-	if(child.tag=='anime'):
-		for child2 in child:
-				print("    Child 2: ", child2.tag, child2.text)
+parse_root(root)
+
