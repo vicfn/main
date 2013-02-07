@@ -3,6 +3,7 @@ import subprocess
 import sys
 import PyQt4.QtGui as qtgui
 import xml.etree.cElementTree as et
+import pickle
 
 class MainWindow(qtgui.QWidget):
 	layout_main_vert = None
@@ -50,35 +51,9 @@ class MainWindow(qtgui.QWidget):
 		self.addLine("Hello", "World!")
 		print("FLAGGED!")
 
-class MALParser():
-	anime_list = {}
-	tree = None
-	root = None
-	
-	def __init__(self):
-		anime_list = {}
-		
-	def parse(self, xml_path):
-		self.tree=et.parse(xml_path)
-		self.root=self.tree.getroot()
-		parse_root(self.root)
-
-	def parse_root(self, xml_tree_root):
-		for child in xml_tree_root:
-			if(child.tag=='anime'):
-				anime_series=parse_anime_entry(child)
-				self.anime_list[anime_series['series_animedb_id']]=anime_series
-		print(self.anime_list)
-		return self.anime_list
-
-	def parse_anime_entry(self, anime_entry):
-		result = {}
-		for tag in anime_entry:
-			result[tag.tag] = tag.text
-		return result
-
-mal_parser=MALParser()
-mal_parser.parse('sample2.xml')
+xml_file = open("xml-file.pickle", "rb")
+anime_list = pickle.load(xml_file)
+print(anime_list)
 
 #a = qtgui.QApplication(sys.argv)
 #window = MainWindow()
