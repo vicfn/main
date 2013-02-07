@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 #NEEDS PYTHON 3!
 
+import pickle
 import xml.etree.cElementTree as et
 
 def parse_root(xml_tree):
@@ -11,6 +12,7 @@ def parse_root(xml_tree):
 #			print(anime_series)
 			anime_list[anime_series['series_animedb_id']]=anime_series
 	print(anime_list)
+	return anime_list
 
 def parse_anime_entry(anime_entry):
 	result = {}
@@ -22,5 +24,7 @@ tree=et.parse('sample2.xml')
 root=tree.getroot()
 
 print(root.tag)
-parse_root(root)
+anime_list = parse_root(root)
 
+file = open("xml-file.pickle", "wb")
+pickle.dump(anime_list,file)
